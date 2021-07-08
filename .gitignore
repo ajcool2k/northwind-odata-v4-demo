@@ -108,3 +108,6 @@ lib
 
 # run
 *.db
+
+
+/data/current.sqlite
