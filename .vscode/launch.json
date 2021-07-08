@@ -13,7 +13,8 @@
                 "<node_internals>/**"
             ],
             "envFile": "${workspaceFolder}/.env",
-            "sourceMaps": true
+            "sourceMaps": true,
+            "smartStep": true,
         },
         {
             "type": "node",
