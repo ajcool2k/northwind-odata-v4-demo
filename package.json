@@ -1,10 +1,6 @@
 {
-  "name": "odata-v4-server-demo",
-  "version": "0.0.2",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/Soontao/odata-v4-server-demo"
-  },
+  "name": "northwind-odata-v4-demo",
+  "version": "0.0.1",
   "scripts": {
     "start": "node lib/server",
     "test": "jest --detectOpenHandles --passWithNoTests",
@@ -39,10 +35,5 @@
     "ts-node": "^9.1.1",
     "typescript": "^4.3.2"
   },
-  "husky": {
-    "hooks": {
-      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
-    }
-  },
-  "license": "MIT"
+  "license": "UNLICENSED"
 }
