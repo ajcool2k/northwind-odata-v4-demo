@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<edmx:Edmx
+	xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Version="4.0">
+	<edmx:DataServices>
+		<Schema
+			xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="kendo_northwind_pg.Models">
+			<EntityType Name="Category">
+				<Key>
+					<PropertyRef Name="CategoryID"/>
+				</Key>
+				<Property Name="CategoryID" Type="Edm.Int32" Nullable="false"/>
+				<Property Name="CategoryName" Type="Edm.String"/>
+				<Property Name="Description" Type="Edm.String"/>
+				<Property Name="Picture" Type="Edm.Binary"/>
+				<NavigationProperty Name="Products" Type="Collection(kendo_northwind_pg.Models.Product)"/>
+			</EntityType>
+			<EntityType Name="Customer">
+				<Key>
+					<PropertyRef Name="CustomerID"/>
+				</Key>
+				<Property Name="CustomerID" Type="Edm.String" Nullable="false"/>
+				<Property Name="CompanyName" Type="Edm.String"/>
+				<Property Name="ContactName" Type="Edm.String"/>
+				<Property Name="ContactTitle" Type="Edm.String"/>
+				<Property Name="Address" Type="Edm.String"/>
+				<Property Name="City" Type="Edm.String"/>
+				<Property Name="Region" Type="Edm.String"/>
+				<Property Name="PostalCode" Type="Edm.String"/>
+				<Property Name="Country" Type="Edm.String"/>
+				<Property Name="Phone" Type="Edm.String"/>
+				<Property Name="Fax" Type="Edm.String"/>
+				<Property Name="CustomerDemographics" Type="Collection(kendo_northwind_pg.Models.CustomerDemographic)"/>
+				<NavigationProperty Name="Orders" Type="Collection(kendo_northwind_pg.Models.Order)"/>
+			</EntityType>
+			<EntityType Name="Employee">
+				<Key>
+					<PropertyRef Name="EmployeeID"/>
+				</Key>
+				<Property Name="EmployeeID" Type="Edm.Int32"/>
+				<Property Name="LastName" Type="Edm.String"/>
+				<Property Name="FirstName" Type="Edm.String"/>
+				<Property Name="Title" Type="Edm.String"/>
+				<Property Name="TitleOfCourtesy" Type="Edm.String"/>
+				<Property Name="BirthDate" Type="Edm.DateTimeOffset"/>
+				<Property Name="HireDate" Type="Edm.DateTimeOffset"/>
+				<Property Name="Address" Type="Edm.String"/>
+				<Property Name="City" Type="Edm.String"/>
+				<Property Name="Region" Type="Edm.String"/>
+				<Property Name="PostalCode" Type="Edm.String"/>
+				<Property Name="Country" Type="Edm.String"/>
+				<Property Name="HomePhone" Type="Edm.String"/>
+				<Property Name="Extension" Type="Edm.String"/>
+				<Property Name="Notes" Type="Edm.String"/>
+				<Property Name="ReportsTo" Type="Edm.Int32"/>
+				<Property Name="PhotoPath" Type="Edm.String"/>
+				<Property Name="hasChildren" Type="Edm.Boolean" Nullable="false"/>
+				<NavigationProperty Name="Subordinates" Type="Collection(kendo_northwind_pg.Models.Employee)"/>
+				<NavigationProperty Name="Employee1" Type="kendo_northwind_pg.Models.Employee">
+					<ReferentialConstraint Property="EmployeeID" ReferencedProperty="EmployeeID"/>
+				</NavigationProperty>
+				<NavigationProperty Name="Orders" Type="Collection(kendo_northwind_pg.Models.Order)"/>
+				<NavigationProperty Name="Territories" Type="Collection(kendo_northwind_pg.Models.Territory)"/>
+			</EntityType>
+			<EntityType Name="Order">
+				<Key>
+					<PropertyRef Name="OrderID"/>
+				</Key>
+				<Property Name="OrderID" Type="Edm.Int32" Nullable="false"/>
+				<Property Name="CustomerID" Type="Edm.String"/>
+				<Property Name="EmployeeID" Type="Edm.Int32"/>
+				<Property Name="OrderDate" Type="Edm.DateTimeOffset"/>
+				<Property Name="RequiredDate" Type="Edm.DateTimeOffset"/>
+				<Property Name="ShippedDate" Type="Edm.DateTimeOffset"/>
+				<Property Name="ShipVia" Type="Edm.Int32"/>
+				<Property Name="Freight" Type="Edm.Decimal"/>
+				<Property Name="ShipName" Type="Edm.String"/>
+				<Property Name="ShipAddress" Type="Edm.String"/>
+				<Property Name="ShipCity" Type="Edm.String"/>
+				<Property Name="ShipRegion" Type="Edm.String"/>
+				<Property Name="ShipPostalCode" Type="Edm.String"/>
+				<Property Name="ShipCountry" Type="Edm.String"/>
+				<Property Name="Order_Details" Type="Collection(kendo_northwind_pg.Models.Order_Detail)"/>
+				<NavigationProperty Name="Customer" Type="kendo_northwind_pg.Models.Customer">
+					<ReferentialConstraint Property="CustomerID" ReferencedProperty="CustomerID"/>
+				</NavigationProperty>
+				<NavigationProperty Name="Employee" Type="kendo_northwind_pg.Models.Employee">
+					<ReferentialConstraint Property="EmployeeID" ReferencedProperty="EmployeeID"/>
+				</NavigationProperty>
+				<NavigationProperty Name="Shipper" Type="kendo_northwind_pg.Models.Shipper"/>
+			</EntityType>
+			<EntityType Name="Product">
+				<Key>
+					<PropertyRef Name="ProductID"/>
+				</Key>
+				<Property Name="ProductID" Type="Edm.Int32" Nullable="false"/>
+				<Property Name="ProductName" Type="Edm.String"/>
+				<Property Name="SupplierID" Type="Edm.Int32"/>
+				<Property Name="CategoryID" Type="Edm.Int32"/>
+				<Property Name="QuantityPerUnit" Type="Edm.String"/>
+				<Property Name="UnitPrice" Type="Edm.Decimal"/>
+				<Property Name="UnitsInStock" Type="Edm.Int16"/>
+				<Property Name="UnitsOnOrder" Type="Edm.Int16"/>
+				<Property Name="ReorderLevel" Type="Edm.Int16"/>
+				<Property Name="Discontinued" Type="Edm.Boolean" Nullable="false"/>
+				<Property Name="Order_Details" Type="Collection(kendo_northwind_pg.Models.Order_Detail)"/>
+				<NavigationProperty Name="Category" Type="kendo_northwind_pg.Models.Category">
+					<ReferentialConstraint Property="CategoryID" ReferencedProperty="CategoryID"/>
+				</NavigationProperty>
+				<NavigationProperty Name="Supplier" Type="kendo_northwind_pg.Models.Supplier">
+					<ReferentialConstraint Property="SupplierID" ReferencedProperty="SupplierID"/>
+				</NavigationProperty>
+			</EntityType>
+			<EntityType Name="Region">
+				<Key>
+					<PropertyRef Name="RegionID"/>
+				</Key>
+				<Property Name="RegionID" Type="Edm.Int32" Nullable="false"/>
+				<Property Name="RegionDescription" Type="Edm.String"/>
+				<NavigationProperty Name="Territories" Type="Collection(kendo_northwind_pg.Models.Territory)"/>
+			</EntityType>
+			<EntityType Name="Shipper">
+				<Key>
+					<PropertyRef Name="ShipperID"/>
+				</Key>
+				<Property Name="ShipperID" Type="Edm.Int32" Nullable="false"/>
+				<Property Name="CompanyName" Type="Edm.String"/>
+				<Property Name="Phone" Type="Edm.String"/>
+				<NavigationProperty Name="Orders" Type="Collection(kendo_northwind_pg.Models.Order)"/>
+			</EntityType>
+			<EntityType Name="Supplier">
+				<Key>
+					<PropertyRef Name="SupplierID"/>
+				</Key>
+				<Property Name="SupplierID" Type="Edm.Int32" Nullable="false"/>
+				<Property Name="CompanyName" Type="Edm.String"/>
+				<Property Name="ContactName" Type="Edm.String"/>
+				<Property Name="ContactTitle" Type="Edm.String"/>
+				<Property Name="Address" Type="Edm.String"/>
+				<Property Name="City" Type="Edm.String"/>
+				<Property Name="Region" Type="Edm.String"/>
+				<Property Name="PostalCode" Type="Edm.String"/>
+				<Property Name="Country" Type="Edm.String"/>
+				<Property Name="Phone" Type="Edm.String"/>
+				<Property Name="Fax" Type="Edm.String"/>
+				<Property Name="HomePage" Type="Edm.String"/>
+				<NavigationProperty Name="Products" Type="Collection(kendo_northwind_pg.Models.Product)"/>
+			</EntityType>
+			<EntityType Name="Territory">
+				<Key>
+					<PropertyRef Name="TerritoryID"/>
+				</Key>
+				<Property Name="TerritoryID" Type="Edm.String" Nullable="false"/>
+				<Property Name="TerritoryDescription" Type="Edm.String"/>
+				<Property Name="RegionID" Type="Edm.Int32"/>
+				<NavigationProperty Name="Region" Type="kendo_northwind_pg.Models.Region">
+					<ReferentialConstraint Property="RegionID" ReferencedProperty="RegionID"/>
+				</NavigationProperty>
+				<NavigationProperty Name="Employees" Type="Collection(kendo_northwind_pg.Models.Employee)"/>
+			</EntityType>
+			<ComplexType Name="CustomerDemographic">
+				<Property Name="CustomerTypeID" Type="Edm.String"/>
+				<Property Name="CustomerDesc" Type="Edm.String"/>
+				<NavigationProperty Name="Customers" Type="Collection(kendo_northwind_pg.Models.Customer)"/>
+			</ComplexType>
+			<ComplexType Name="Order_Detail">
+				<Property Name="OrderID" Type="Edm.Int32" Nullable="false"/>
+				<Property Name="ProductID" Type="Edm.Int32" Nullable="false"/>
+				<Property Name="UnitPrice" Type="Edm.Decimal" Nullable="false"/>
+				<Property Name="Quantity" Type="Edm.Int16" Nullable="false"/>
+				<Property Name="Discount" Type="Edm.Single" Nullable="false"/>
+				<NavigationProperty Name="Order" Type="kendo_northwind_pg.Models.Order"/>
+				<NavigationProperty Name="Product" Type="kendo_northwind_pg.Models.Product"/>
+			</ComplexType>
+		</Schema>
+		<Schema Namespace="Default"
+			xmlns="http://docs.oasis-open.org/odata/ns/edm">
+			<Function Name="TopEmployees" IsBound="true">
+				<Parameter Name="bindingParameter" Type="Collection(kendo_northwind_pg.Models.Employee)"/>
+				<ReturnType Type="Collection(kendo_northwind_pg.Models.Employee)"/>
+			</Function>
+			<EntityContainer Name="Container">
+				<EntitySet Name="Customers" EntityType="kendo_northwind_pg.Models.Customer">
+					<NavigationPropertyBinding Path="Orders" Target="Orders"/>
+					<NavigationPropertyBinding Path="CustomerDemographics/Customers" Target="Customers"/>
+				</EntitySet>
+				<EntitySet Name="Categories" EntityType="kendo_northwind_pg.Models.Category">
+					<NavigationPropertyBinding Path="Products" Target="Products"/>
+				</EntitySet>
+				<EntitySet Name="Employees" EntityType="kendo_northwind_pg.Models.Employee">
+					<NavigationPropertyBinding Path="Orders" Target="Orders"/>
+					<NavigationPropertyBinding Path="Territories" Target="Territories"/>
+				</EntitySet>
+				<EntitySet Name="bindingParameter/Employees" EntityType="kendo_northwind_pg.Models.Employee">
+					<NavigationPropertyBinding Path="Orders" Target="Orders"/>
+					<NavigationPropertyBinding Path="Territories" Target="Territories"/>
+				</EntitySet>
+				<EntitySet Name="Orders" EntityType="kendo_northwind_pg.Models.Order">
+					<NavigationPropertyBinding Path="Customer" Target="Customers"/>
+					<NavigationPropertyBinding Path="Order_Details/Order" Target="Orders"/>
+					<NavigationPropertyBinding Path="Order_Details/Product" Target="Products"/>
+					<NavigationPropertyBinding Path="Shipper" Target="Shippers"/>
+				</EntitySet>
+				<EntitySet Name="Products" EntityType="kendo_northwind_pg.Models.Product">
+					<NavigationPropertyBinding Path="Category" Target="Categories"/>
+					<NavigationPropertyBinding Path="Order_Details/Order" Target="Orders"/>
+					<NavigationPropertyBinding Path="Order_Details/Product" Target="Products"/>
+					<NavigationPropertyBinding Path="Supplier" Target="Suppliers"/>
+				</EntitySet>
+				<EntitySet Name="Regions" EntityType="kendo_northwind_pg.Models.Region">
+					<NavigationPropertyBinding Path="Territories" Target="Territories"/>
+				</EntitySet>
+				<EntitySet Name="Shippers" EntityType="kendo_northwind_pg.Models.Shipper">
+					<NavigationPropertyBinding Path="Orders" Target="Orders"/>
+				</EntitySet>
+				<EntitySet Name="Suppliers" EntityType="kendo_northwind_pg.Models.Supplier">
+					<NavigationPropertyBinding Path="Products" Target="Products"/>
+				</EntitySet>
+				<EntitySet Name="Territories" EntityType="kendo_northwind_pg.Models.Territory">
+					<NavigationPropertyBinding Path="Region" Target="Regions"/>
+				</EntitySet>
+			</EntityContainer>
+		</Schema>
+	</edmx:DataServices>
+</edmx:Edmx>
