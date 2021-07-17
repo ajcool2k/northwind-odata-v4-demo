@@ -26,7 +26,7 @@ const run = async () => {
     });
 
     server.namespace = 'kendo_northwind_pg.Models'; // we can probably change this in the long run
-    // TODO: Fix data constaints with model (Products.SupplierID)
+    // TODO: Fix data constaints with models ( Products.SupplierID on Create/Update does not works )
     // const connection = server.getConnection();
     // const dataFile = await createDataFile(appDir);
     // await importData(connection, dataFile);
