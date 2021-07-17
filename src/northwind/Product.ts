@@ -23,7 +23,7 @@
       </EntityType>
 */
 
-import { BigNumber, Edm, ForeignKey, IncKeyProperty, ODataModel, ODataNavigation, Property, Required, withEntitySetName } from '@odata/server';
+import { BigNumber, Edm, ForeignKey, IncKeyProperty, ODataModel, ODataNavigation, OptionalProperty, Property, withEntitySetName } from '@odata/server';
 import { Category } from './Category';
 import { Order_Detail } from './OrderDetail';
 import { Supplier } from './Supplier';
@@ -39,36 +39,35 @@ export class Product {
   @Edm.String
   ProductName: string;
 
-  @Property()
   @ForeignKey()
+  @Edm.Nullable
   SupplierID: number;
 
-  @Property()
+  @OptionalProperty()
   @ForeignKey()
   CategoryID: number;
 
-  @Property()
+  @OptionalProperty()
   @Edm.String
   QuantityPerUnit: string;
 
-  @Property({ type: "numeric" })
+  @OptionalProperty({ type: "numeric" })
   @Edm.Decimal
   UnitPrice: BigNumber;
 
-  @Property()
+  @OptionalProperty()
   @Edm.Int16
   UnitsInStock: number;
 
-  @Property()
+  @OptionalProperty()
   @Edm.Int16
   UnitsOnOrder: number;
 
-  @Property()
+  @OptionalProperty()
   @Edm.Int16
   ReorderLevel: number;
 
-  @Property()
-  @Required
+  @OptionalProperty()
   @Edm.Boolean
   Discontinued: boolean;
 

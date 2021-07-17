@@ -1,69 +1,44 @@
-import { Connection, createTypedODataServer } from '@odata/server';
-import express from "express";
-import * as fs from 'fs';
+#!/usr/bin/env node
+
+import { createTypedODataServer } from '@odata/server';
+import cors from 'cors';
+import express from 'express';
 import * as path from 'path';
 import 'reflect-metadata';
-import { AllEntries } from "./northwind";
-
-const appDir = path.resolve(__dirname, "../");
-const dataFile = path.join(appDir, 'data', 'current.sqlite');
+import { AllEntries } from './northwind';
 
 const run = async () => {
-
-    const port = parseInt(process.env.PORT || '50000', 10);
+    const host = process.env.SERVER_HOST || '0.0.0.0';
+    const port = parseInt(process.env.SERVER_PORT || '3666', 10);
+    const partialPath = process.env.SERVER_PORT || '/odata';
+    const appDir = path.resolve(__dirname, '../');
+    const corsOptions = { origin: '*', methods: '*', allowedHeaders: '*' };
 
     const server = await createTypedODataServer({
-      name: "default",
-      type: "sqljs",
-      synchronize: false, // don't create at start-up we use our own SQL database
-      // autoSave: true,
-      logging: true,
-      cache: true,
-      entities: [...AllEntries],
+        name: 'default',
+        type: 'sqljs',
+        // TODO: enabled to allow create projects (database has constraints)
+        synchronize: true, // don't create at start-up we use our own SQL database
+        autoSave: false,
+        logging: true,
+        cache: true,
+        entities: [...AllEntries],
     });
 
-    server.namespace = "kendo_northwind_pg.Models"; // we can probably change this in the long run
-
-    const connection = server.getConnection();
-
-    if (!fs.existsSync(dataFile)) createDataFile();
-
-    // Import dataFile
-    importData(connection, dataFile);
+    server.namespace = 'kendo_northwind_pg.Models'; // we can probably change this in the long run
+    // TODO: Fix data constaints with models ( Products.SupplierID on Create/Update does not works )
+    // const connection = server.getConnection();
+    // const dataFile = await createDataFile(appDir);
+    // await importData(connection, dataFile);
 
     const app = express();
-
+    app.use(cors(corsOptions));
     app.set('trust proxy', true);
+    app.use(partialPath, server.create());
 
-    app.use(server.create());
-
-    app.listen(port, () => {
-        console.log(`server started at ${port}`);
+    app.listen(port, host, () => {
+        console.log(`server started at ${host}:${port}${partialPath}`);
     });
-};
-
-const createDataFile = () => {
-    const src = path.join(appDir, 'data', 'initial.sqlite');
-    const target = path.join(appDir, 'data', 'current.sqlite');
-    fs.copyFileSync(src, target);
-};
-
-const importData = async (connection: Connection, path: string) => {
-    const sqljsManager = connection.sqljsManager;
-
-    try {
-        await sqljsManager.loadDatabase(path);
-        // const resultAfterLoad = await sqljsManager.query("SELECT * FROM Customers");
-        // console.log('resultAfterLoad', resultAfterLoad);
-    } catch (error) {
-        console.error(error);
-    }
-};
-
-const exportData = async (connection: Connection, path: string) => {
-    const sqljsManager = connection.sqljsManager;
-    sqljsManager.saveDatabase(path);
-    console.info('saved into', path);
 };
 
 if (require.main == module) {
