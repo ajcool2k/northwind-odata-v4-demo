@@ -34,7 +34,7 @@ const run = async () => {
     app.use(partialPath, server.create(partialPath));
 
     app.listen(port, host, () => {
-        console.log(`server started at ${host}:${port}/${partialPath}`);
+        console.log(`server started at ${host}:${port}${partialPath}`);
     });
 };
 

@@ -2,9 +2,11 @@
   "name": "northwind-odata-v4-demo",
   "version": "0.0.1",
   "scripts": {
-    "start": "node lib/server",
+    "start": "nodemon --exec ts-node src/server.ts",
+    "start:prod": "node lib/server.js",
     "test": "jest --detectOpenHandles --passWithNoTests",
     "build": "tsc",
+    "prepublish": "npm run build",
     "lint": "eslint src/** --fix",
     "release": "standard-version --no-verify && git push --follow-tags origin master",
     "coverage": "npm test -- --coverage --no-cache"
