@@ -12,7 +12,7 @@
     "coverage": "npm test -- --coverage --no-cache"
   },
   "bin": {
-    "flexpages-odata": "./lib/server.js"
+    "odata-service": "./lib/server.js"
   },
   "engines": {
     "node": ">=10"
