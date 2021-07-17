@@ -15,6 +15,7 @@
   "dependencies": {
     "@newdash/newdash": "^5.18.0",
     "@odata/server": "^0.2.48",
+    "cors": "^2.8.5",
     "express": "^4.17.1",
     "reflect-metadata": "^0.1.13",
     "sql.js": "^1.5.0",
@@ -22,6 +23,8 @@
   },
   "devDependencies": {
     "@commitlint/config-conventional": "^11.0.0",
+    "@types/cors": "^2.8.12",
+    "@types/express": "^4.17.13",
     "@types/jest": "^26.0.23",
     "@types/node": "^14.14.20",
     "@typescript-eslint/eslint-plugin": "^4.26.0",

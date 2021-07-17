@@ -1,8 +1,10 @@
 import { Connection, createTypedODataServer } from '@odata/server';
+import cors, { CorsOptions } from 'cors';
 import express from "express";
 import * as fs from 'fs';
 import * as path from 'path';
 import 'reflect-metadata';
+import corsConfig from "../conf/cors.config.js";
 import { AllEntries } from "./northwind";
 
 const appDir = path.resolve(__dirname, "../");
@@ -10,6 +12,7 @@ const dataFile = path.join(appDir, 'data', 'current.sqlite');
 
 const run = async () => {
 
+    const host = 'http://localhost';
     const port = parseInt(process.env.PORT || '50000', 10);
 
     const server = await createTypedODataServer({
@@ -32,13 +35,18 @@ const run = async () => {
     importData(connection, dataFile);
 
     const app = express();
+    const corsOptions: CorsOptions = corsConfig;
+    app.use(cors(corsOptions));
 
     app.set('trust proxy', true);
 
     app.use(server.create());
 
     app.listen(port, () => {
-        console.log(`server started at ${port}`);
+        console.log(`server started at:`, '\t', `${host}:${port}`);
+        console.log(`metadata available at:`, '\t', `${host}:${port}/$metadata`);
+
+        console.debug(`\nusing cors settings:`, corsOptions);
     });
 };
 
