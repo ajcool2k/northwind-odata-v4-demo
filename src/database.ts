@@ -45,7 +45,7 @@ async function exportData(connection: Connection, path: string): Promise<void> {
 
 export {
     getPath,
-    showData as showTables,
+    showData,
     importData,
     exportData,
 };
